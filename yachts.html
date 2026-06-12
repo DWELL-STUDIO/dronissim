@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dronissim — Yachts</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090c;--deep:#0d1117;--white:#f2eeea;--teal:#7ec4cf;--muted:rgba(242,238,234,.55)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.nav{position:fixed;top:0;left:0;right:0;padding:1.4rem 4vw;display:flex;justify-content:space-between;align-items:center;z-index:50}
+.nav .nav-logo,.nav .nav-links a{mix-blend-mode:difference}
+.nav-logo{font-size:.78rem;letter-spacing:.32em;font-weight:500;text-transform:uppercase}
+.nav-links{display:flex;gap:2.2rem}
+.nav-links a{font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;opacity:.65;transition:opacity .3s}
+.nav-links a:hover,.nav-links a.active{opacity:1}
+.lang-switch{display:flex;gap:.5rem;margin-left:1rem;border-left:1px solid rgba(255,255,255,.18);padding-left:1.2rem}
+.lang-switch button{background:none;border:none;cursor:pointer;font-size:1.05rem;padding:0;opacity:.55;transition:opacity .25s,transform .25s;line-height:1;color:inherit}
+.lang-switch button:hover{opacity:1;transform:scale(1.15)}
+.lang-switch button.active{opacity:1;transform:scale(1.1)}
+
+.y-hero{height:55vh;min-height:380px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5vw 4rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.y-hero-tag{font-size:.62rem;letter-spacing:.55em;text-transform:uppercase;color:var(--teal);margin-bottom:1.2rem}
+.y-hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,7rem);font-weight:300;line-height:.95;letter-spacing:-.015em}
+.y-hero-h1 em{font-style:italic;color:var(--teal)}
+.y-hero-sub{font-size:.85rem;color:var(--muted);max-width:520px;margin-top:1.8rem;line-height:1.7}
+
+.boat{padding:5rem 5vw;border-bottom:1px solid rgba(255,255,255,.06)}
+.boat-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem}
+.boat-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3.6rem);font-weight:300}
+.boat-h2 em{font-style:italic;color:var(--teal)}
+.boat-meta{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
+.boat-desc{max-width:600px;font-size:.92rem;line-height:1.8;color:rgba(242,238,234,.78);margin-bottom:2.5rem}
+
+.boat-grid{display:grid;grid-template-columns:1.1fr .9fr .9fr 1.1fr;grid-template-rows:290px 290px;gap:.8rem}
+.boat-grid .gc{background:#07090c;overflow:hidden;position:relative;border-radius:2px;cursor:pointer}
+.boat-grid .gc:nth-child(1){grid-column:1;grid-row:1/3}
+.boat-grid .gc:nth-child(2){grid-column:2;grid-row:1}
+.boat-grid .gc:nth-child(3){grid-column:3;grid-row:1}
+.boat-grid .gc:nth-child(4){grid-column:4;grid-row:1/3}
+.boat-grid .gc:nth-child(5){grid-column:2;grid-row:2}
+.boat-grid .gc:nth-child(6){grid-column:3;grid-row:2}
+.boat-grid .gc img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.22,1,.36,1)}
+.boat-grid .gc:hover img{transform:scale(1.06)}
+.boat-grid .gc.blur-bg::before{content:'';position:absolute;inset:0;background-image:var(--bg);background-size:cover;background-position:center;filter:blur(28px) brightness(.7);transform:scale(1.25);z-index:0}
+.boat-grid .gc.blur-bg img{position:relative;z-index:1;object-fit:contain}
+@media(max-width:900px){.boat-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,220px)}.boat-grid .gc:nth-child(n){grid-column:auto;grid-row:auto}}
+
+.foot{padding:4rem 5vw;text-align:center;color:var(--muted);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="dronissim.html">DRONISSIM</a>
+  <div class="nav-links">
+    <a href="dronissim.html#nat-gallery" data-i18n="nav_gallery">Galerie</a>
+    <a href="yachts.html" class="active" data-i18n="nav_yachts">Yachts</a>
+    <a href="dronissim.html#about" data-i18n="nav_about">À propos</a>
+    <a href="https://www.instagram.com/dronissim/" target="_blank">Instagram</a>
+    <div class="lang-switch">
+      <button data-lang="fr" title="Français">🇫🇷</button>
+      <button data-lang="en" title="English">🇬🇧</button>
+      <button data-lang="es" title="Español">🇪🇸</button>
+    </div>
+  </div>
+</nav>
+
+<section class="y-hero">
+  <span class="y-hero-tag">Ibiza · Formentera</span>
+  <h1 class="y-hero-h1" data-i18n-html="y_hero_h1">Yachts <em>en mer</em></h1>
+  <p class="y-hero-sub" data-i18n="y_hero_sub">Une collection dédiée aux bateaux les plus marquants captés depuis le ciel — proues, lignes et sillages des plus belles coques des Baléares.</p>
+</section>
+
+<section class="boat" id="tecnomar">
+  <div class="boat-head">
+    <h2 class="boat-h2"><em>Lamborghini</em> — Tecnomar 63</h2>
+    <span class="boat-meta">Ibiza · 2025</span>
+  </div>
+  <p class="boat-desc" data-i18n="tecnomar_desc">Le Tecnomar for Lamborghini 63 — 24 mètres de fibre de carbone, deux moteurs MAN V12, plus de 60 nœuds. Captée au large d'Ibiza, sa coque dessine une signature unique sur les eaux turquoise.</p>
+  <div class="boat-grid">
+    <div class="gc"><img src="lamborghini/DJI_20250726182259_0180_D.jpg" alt="La proue" style="object-position:50% 50%"></div>
+    <div class="gc blur-bg" style="--bg:url('lamborghini/DJI_20250726182055_0174_D.jpg')"><img src="lamborghini/DJI_20250726182055_0174_D.jpg" alt="Élégance"></div>
+    <div class="gc"><img src="lamborghini/DJI_20250726182117_0175_D.jpg" alt="Lignes tendues" style="object-position:35% 50%"></div>
+    <div class="gc"><img src="lamborghini/DJI_20250726182134_0176_D.JPG" alt="Profil" style="object-position:60% 35%"></div>
+    <div class="gc blur-bg" style="--bg:url('lamborghini/DJI_20250726182954_0197_D.jpg')"><img src="lamborghini/DJI_20250726182954_0197_D.jpg" alt="En mouvement"></div>
+    <div class="gc"><img src="lamborghini/DJI_20250726183505_0215_D.jpg" alt="Le pont" style="object-position:35% 50%"></div>
+  </div>
+</section>
+
+<div class="foot" data-i18n="foot">© Dronissim — Tous droits réservés</div>
+
+<script>
+const I18N={
+  fr:{nav_gallery:"Galerie",nav_yachts:"Yachts",nav_about:"À propos",y_hero_h1:"Yachts <em>en mer</em>",y_hero_sub:"Une collection dédiée aux bateaux les plus marquants captés depuis le ciel — proues, lignes et sillages des plus belles coques des Baléares.",tecnomar_desc:"Le Tecnomar for Lamborghini 63 — 24 mètres de fibre de carbone, deux moteurs MAN V12, plus de 60 nœuds. Captée au large d’Ibiza, sa coque dessine une signature unique sur les eaux turquoise.",foot:"© Dronissim — Tous droits réservés"},
+  en:{nav_gallery:"Gallery",nav_yachts:"Yachts",nav_about:"About",y_hero_h1:"Yachts <em>at sea</em>",y_hero_sub:"A collection dedicated to the most striking boats captured from above — bows, lines and wakes of the finest hulls in the Balearics.",tecnomar_desc:"The Tecnomar for Lamborghini 63 — 24 meters of carbon fiber, two MAN V12 engines, over 60 knots. Captured off Ibiza, its hull draws a unique signature on the turquoise waters.",foot:"© Dronissim — All rights reserved"},
+  es:{nav_gallery:"Galería",nav_yachts:"Yates",nav_about:"Acerca de",y_hero_h1:"Yates <em>en el mar</em>",y_hero_sub:"Una colección dedicada a los barcos más impactantes captados desde el cielo — proas, líneas y estelas de los cascos más bellos de las Baleares.",tecnomar_desc:"El Tecnomar for Lamborghini 63 — 24 metros de fibra de carbono, dos motores MAN V12, más de 60 nudos. Captado frente a Ibiza, su casco dibuja una firma única sobre las aguas turquesas.",foot:"© Dronissim — Todos los derechos reservados"}
+};
+function applyLang(lang){
+  const dict=I18N[lang]||I18N.fr;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(dict[k])el.textContent=dict[k];});
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(dict[k])el.innerHTML=dict[k];});
+  document.documentElement.lang=lang;
+  document.querySelectorAll('.lang-switch button').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  try{localStorage.setItem('dronissim_lang',lang);}catch(e){}
+}
+document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+(function(){let s='fr';try{s=localStorage.getItem('dronissim_lang')||'fr';}catch(e){}applyLang(s);})();
+</script>
+
+</body>
+</html>
