@@ -52,15 +52,28 @@ a{color:inherit;text-decoration:none}
 
 .foot{padding:4rem 5vw;text-align:center;color:var(--muted);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase}
 
+/* Bouton burger (caché sur desktop) */
+.nav-toggle{display:none;position:relative;width:30px;height:20px;background:none;border:none;cursor:pointer;padding:0;z-index:600;mix-blend-mode:difference}
+.nav-toggle span{position:absolute;left:0;right:0;height:1.5px;background:var(--white);transition:transform .45s cubic-bezier(.22,1,.36,1),top .45s cubic-bezier(.22,1,.36,1),bottom .45s cubic-bezier(.22,1,.36,1)}
+.nav-toggle span:nth-child(1){top:3px}
+.nav-toggle span:nth-child(2){bottom:3px}
+.nav.open .nav-toggle{mix-blend-mode:normal}
+.nav.open .nav-toggle span:nth-child(1){top:9px;transform:rotate(45deg)}
+.nav.open .nav-toggle span:nth-child(2){bottom:9px;transform:rotate(-45deg)}
+
 /* MOBILE / TACTILE — desktop inchangé */
 @media(max-width:768px){
-  .nav{padding:.9rem 5vw;background:rgba(7,9,12,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .nav{padding:1.2rem 6vw;align-items:center}
+  .nav-logo{font-size:.82rem}
+  .nav-toggle{display:block}
+  .nav.open .nav-logo{z-index:600;position:relative}
+  .nav-links{position:fixed;inset:0;flex-direction:column;justify-content:center;align-items:center;gap:2rem;background:rgba(7,9,12,.97);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .5s ease,transform .65s cubic-bezier(.22,1,.36,1),visibility .5s;z-index:550}
+  .nav.open .nav-links{opacity:1;visibility:visible;transform:none}
   .nav .nav-logo,.nav .nav-links a{mix-blend-mode:normal}
-  .nav-links{gap:1rem}
-  .nav-links a{font-size:.58rem;letter-spacing:.1em}
-  .nav-links a[target="_blank"]{display:none}
-  .lang-switch{margin-left:.5rem;padding-left:.7rem;gap:.3rem}
-  .lang-switch button{font-size:.95rem}
+  .nav-links a{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:300;letter-spacing:.03em;text-transform:none;opacity:.9}
+  .nav-links a.active{color:var(--teal)}
+  .lang-switch{margin-left:0;border-left:none;border-top:1px solid rgba(255,255,255,.12);padding:1.8rem 0 0;margin-top:1.4rem;gap:1.4rem}
+  .lang-switch button{font-size:1.7rem}
   .y-hero{padding:0 7vw 3.5rem;min-height:340px}
   .boat{padding:4rem 7vw}
   .boat-head{margin-bottom:2rem}
@@ -72,8 +85,9 @@ a{color:inherit;text-decoration:none}
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav" id="nav">
   <a class="nav-logo" href="dronissim.html">DRONISSIM</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
   <div class="nav-links">
     <a href="dronissim.html#nat-gallery" data-i18n="nav_gallery">Galerie</a>
     <a href="yachts.html" class="active" data-i18n="nav_yachts">Yachts</a>
@@ -127,6 +141,15 @@ function applyLang(lang){
 }
 document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
 (function(){let s='fr';try{s=localStorage.getItem('dronissim_lang')||'fr';}catch(e){}applyLang(s);})();
+/* Menu burger mobile */
+(function(){
+  const nav=document.getElementById('nav'),tog=document.getElementById('navToggle');
+  if(!tog)return;
+  const close=()=>{nav.classList.remove('open');tog.setAttribute('aria-expanded','false');document.body.style.overflow='';};
+  tog.addEventListener('click',()=>{const o=nav.classList.toggle('open');tog.setAttribute('aria-expanded',o?'true':'false');document.body.style.overflow=o?'hidden':'';});
+  nav.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',close));
+  window.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+})();
 </script>
 
 </body>

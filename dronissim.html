@@ -87,6 +87,13 @@ body.on-img #cur-ring{width:75px;height:75px;opacity:.3}
 .lang-switch button.active{opacity:1;transform:scale(1.1)}
 .nav-ig{font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--white);border:1px solid rgba(242,238,234,.45);padding:.5rem 1.3rem;transition:border-color .3s}
 .nav-ig:hover{border-color:var(--white)}
+.nav-toggle{display:none;position:relative;width:30px;height:20px;background:none;border:none;cursor:pointer;padding:0;z-index:600;mix-blend-mode:difference}
+.nav-toggle span{position:absolute;left:0;right:0;height:1.5px;background:var(--white);transition:transform .45s cubic-bezier(.22,1,.36,1),top .45s cubic-bezier(.22,1,.36,1),bottom .45s cubic-bezier(.22,1,.36,1)}
+.nav-toggle span:nth-child(1){top:3px}
+.nav-toggle span:nth-child(2){bottom:3px}
+#nav.open .nav-toggle{mix-blend-mode:normal}
+#nav.open .nav-toggle span:nth-child(1){top:9px;transform:rotate(45deg)}
+#nav.open .nav-toggle span:nth-child(2){bottom:9px;transform:rotate(-45deg)}
 
 /* HERO */
 #hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 5vw 4.5rem}
@@ -283,7 +290,7 @@ footer{padding:2.2rem 5vw;border-top:1px solid var(--line);display:flex;align-it
 .vit-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,7rem);font-weight:300;color:var(--white);line-height:.9;letter-spacing:-.02em;margin-bottom:1.6rem}
 .vit-title em{font-style:italic;color:var(--teal)}
 .vit-desc{font-size:.88rem;line-height:1.75;color:rgba(242,238,234,.65);max-width:36ch}
-@media(max-width:720px){#vitesse{height:58vw;min-height:280px}.vit-content{padding:2rem 1.5rem}.vit-title{font-size:2.4rem}}
+@media(max-width:720px){#vitesse{height:72vh;min-height:460px}.vit-content{padding:2.4rem 7vw;max-width:none}.vit-title{font-size:clamp(2.6rem,12vw,3.6rem)}.vit-desc{max-width:32ch;font-size:.92rem}}
 
 /* VITESSE ANIMATION */
 #vitesse .vit-bg img{transform:translateX(6%) scale(1.08);transition:transform 2.4s cubic-bezier(.16,1,.3,1)}
@@ -339,12 +346,12 @@ footer{padding:2.2rem 5vw;border-top:1px solid var(--line);display:flex;align-it
 @media(max-width:900px){.lambo-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:520px){.lambo-grid{grid-template-columns:repeat(2,1fr)}}
 #transp:hover .vit-bg img,#lone:hover .vit-bg img,#sillage:hover .vit-bg img{transform:scale(1.04)!important;transition-duration:1.4s}
-@media(max-width:720px){#sillage{height:60vw;min-height:300px}}
+@media(max-width:720px){#sillage{height:80vh;min-height:520px}}
 #transp .vit-fade{background:linear-gradient(to left,rgba(7,9,12,.55) 0%,rgba(7,9,12,.22) 50%,rgba(7,9,12,0) 100%)}
 #sillage .vit-fade{background:linear-gradient(to right,rgba(7,9,12,.55) 0%,rgba(7,9,12,.22) 50%,rgba(7,9,12,0) 100%)}
 #transp .vit-content{align-items:flex-end;text-align:right;left:auto;right:0;padding-left:2rem}
 #transp .vit-desc{margin-left:auto}
-@media(max-width:720px){#transp,#lone{height:60vw;min-height:300px}#transp .vit-content{align-items:flex-start;text-align:left;padding-left:clamp(2.5rem,7vw,8rem)}#transp .vit-desc{margin-left:0}}
+@media(max-width:720px){#transp,#lone{height:72vh;min-height:460px}#transp .vit-content{align-items:flex-start;text-align:left;left:0;right:auto;padding:2.4rem 7vw}#transp .vit-desc{margin-left:0}}
 
 /* SPLIT INVERSE — dawn */
 #dawn,#dalt{display:grid;grid-template-columns:1fr 1fr;height:78vh;max-height:820px}
@@ -362,13 +369,22 @@ footer{padding:2.2rem 5vw;border-top:1px solid var(--line);display:flex;align-it
   body{cursor:auto}
   #cur,#cur-ring{display:none!important}
 
-  /* NAV */
-  #nav{padding:1rem 5vw}
-  .nav-logo{font-size:1rem;letter-spacing:.14em}
-  .nav-links{gap:.9rem}
-  .nav-links a{font-size:.56rem;letter-spacing:.1em}
-  .lang-switch{margin-left:.55rem;padding-left:.7rem;gap:.3rem}
-  .lang-switch button{font-size:.95rem}
+  /* NAV — bouton burger + menu plein écran */
+  #nav{padding:1.2rem 6vw;align-items:center}
+  .nav-logo{font-size:1.05rem;letter-spacing:.12em}
+  .nav-toggle{display:block}
+  .nav-links{position:fixed;inset:0;flex-direction:column;justify-content:center;align-items:center;gap:2rem;padding:0;list-style:none;background:rgba(7,9,12,.97);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .5s ease,transform .65s cubic-bezier(.22,1,.36,1),visibility .5s;z-index:550}
+  #nav.open .nav-links{opacity:1;visibility:visible;transform:none}
+  #nav.open .nav-logo{z-index:600;position:relative}
+  .nav-links a{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:300;letter-spacing:.03em;text-transform:none;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1),color .3s;mix-blend-mode:normal}
+  #nav.open .nav-links a{opacity:.9;transform:none}
+  #nav.open .nav-links a:nth-child(1){transition-delay:.12s}
+  #nav.open .nav-links a:nth-child(2){transition-delay:.18s}
+  #nav.open .nav-links a:nth-child(3){transition-delay:.24s}
+  #nav.open .nav-links a:nth-child(4){transition-delay:.3s}
+  .lang-switch{margin-left:0;border-left:none;border-top:1px solid rgba(255,255,255,.12);padding:1.8rem 0 0;margin-top:1.4rem;gap:1.4rem;opacity:0;transition:opacity .6s ease .36s}
+  #nav.open .lang-switch{opacity:1}
+  .lang-switch button{font-size:1.7rem}
 
   /* HERO */
   #hero{padding:0 7vw 3.5rem}
@@ -438,6 +454,7 @@ footer{padding:2.2rem 5vw;border-top:1px solid var(--line);display:flex;align-it
 
 <nav id="nav">
   <a class="nav-logo" href="#">DRONISSIM<span class="reg" aria-label="R"></span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
   <div class="nav-links">
     <a href="#nat-gallery" data-i18n="nav_gallery">Galerie</a>
     <a href="yachts.html" data-i18n="nav_yachts">Yachts</a>
@@ -872,6 +889,18 @@ footer{padding:2.2rem 5vw;border-top:1px solid var(--line);display:flex;align-it
 (function(){
   const nav=document.getElementById('nav');
   window.addEventListener('scroll',()=>{nav.classList.toggle('solid',window.scrollY>80);},{passive:true});
+  /* Menu burger mobile */
+  const tog=document.getElementById('navToggle');
+  if(tog){
+    const close=()=>{nav.classList.remove('open');tog.setAttribute('aria-expanded','false');document.body.style.overflow='';};
+    tog.addEventListener('click',()=>{
+      const open=nav.classList.toggle('open');
+      tog.setAttribute('aria-expanded',open?'true':'false');
+      document.body.style.overflow=open?'hidden':'';
+    });
+    nav.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',close));
+    window.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  }
 })();
 
 
